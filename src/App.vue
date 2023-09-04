@@ -5523,7 +5523,6 @@ export default {
                 });
                 this.filteredItems = this.wordList;
                 localStorage.setItem("wordList", JSON.stringify(this.wordList));
-                console.log(this.wordList, this.filteredItems)
             }
             reader.readAsArrayBuffer(event.target.files[0]);
         });
@@ -5575,10 +5574,10 @@ export default {
 .custom-file-upload {
   border-radius: 5px;
   display: inline-block;
-  padding: 10px 14px;
   cursor: pointer;
   background-color: #ffcb5d;
   font-family: "Tsunagi Gothic Black";
+  margin-right: 10px;
 }
 
 .custom-file-upload:hover {
@@ -5686,17 +5685,40 @@ nav a:first-of-type {
   border: 0;
 }
 
-@media (min-width: 1024px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
+@font-face {
+    font-family: "Tsunagi Gothic Black";
+    src: url("../src/assets/TsunagiGothic.ttf") format("truetype");
+    font-style: normal; 
+    font-weight: normal;
   }
 
-  .logo {
-    margin: 0 2rem 0 0;
+.wrapper {
+    display: grid;
+    width: 100%;
+    padding: 2rem;
+    gap: 10px;
   }
 
+@media (min-width: 300px) {
+  .wrapper {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    gap: 10px;
+    width: 100%;
+    padding: 2rem;
+  }
+
+  .custom-file-upload {
+        padding: 6px 8px;
+        font-size: 14px;
+   }
+
+   .form__group {
+    width: 75%;
+   }
+}
+
+@media (min-width: 1281px) {
   .wrapper {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -5704,21 +5726,8 @@ nav a:first-of-type {
     width: 100%;
     padding: 2rem;
   }
-
-  nav {
-    text-align: left;
-    margin-left: -1rem;
-    font-size: 1rem;
-
-    padding: 1rem 0;
-    margin-top: 1rem;
-  }
-
-  @font-face {
-    font-family: "Tsunagi Gothic Black";
-    src: url("../src/assets/TsunagiGothic.ttf") format("truetype");
-    font-style: normal; 
-    font-weight: normal;
-  }
+  .custom-file-upload {
+        padding: 10px 14px;
+   }
 }
 </style>

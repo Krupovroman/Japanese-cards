@@ -38,9 +38,7 @@
             },
             startExam() {
                 this.selectedWords = this.selectedGroup.length > 0 && !this.selectedGroup.includes(null) ? this.wordList.filter(item => this.selectedGroup.some(group => group === item.groupName)) : this.wordList;
-                console.log(this.selectedWords.length, 'this.selectedWordsthis.selectedWordsthis.selectedWords')
                 this.selectedWords = _.uniqBy(this.selectedWords, 'word');
-                console.log(this.selectedWords.length, 'this.selectedWordsthis.selectedWordsthis.selectedWords')
 
                 if(this.selectedWords.length < 4) {
                     this.error = {title: 'Ошибка', text: 'В выборке содержится менее 4 слов, выберите больше групп'};
@@ -117,9 +115,9 @@
                     </n-alert>
                 </div>
                 <div style="padding-top: 20px; display: flex; justify-content: center; align-items: center; flex-direction: column;">
-                    <n-select style="width: 50%;" :options="groupOptions" placeholder="Выберите группу слов" multiple :on-update:value="groupSelect" filterable />
-                    <div style="display: flex; padding-top: 20px; justify-content: start; width: 50%">
-                        <n-checkbox label="Только kanji" :on-update-checked="checkboxKanjiChanged" />
+                    <n-select class="group-select" :options="groupOptions" placeholder="Выберите группу слов" multiple :on-update:value="groupSelect" filterable />
+                    <div class="config-checkbox-wrapper" style="display: flex; padding-top: 20px; justify-content: start;">
+                        <n-checkbox label="Только кандзи" :on-update-checked="checkboxKanjiChanged" />
                         <n-checkbox label="Режим перевода" :on-update-checked="checkboxOnlyTranslateChanged" style="padding-left: 20px;" />
                     </div>
                 </div>
@@ -160,7 +158,7 @@
                 </div>
                 <div v-else style="display: flex; flex-direction: column;" class="statistic">
                     <div style="display: flex; justify-content: flex-end;">
-                        <n-button type="info" :on-click="() => {reinit()}">
+                        <n-button style="margin-bottom: 20px;" type="info" :on-click="() => {reinit()}">
                             Заново
                         </n-button>
                     </div>
@@ -168,11 +166,11 @@
                     <span>{{ 'Количество правильных ответов: ' + this.statistic.correctAnswersCount  + ' / ' + selectedWords.length }}</span>
                     <div v-if="this.statistic.wordsWithError.length">
                         <span>Слова для повторения:</span>
-                        <n-table :bordered="false" :single-line="false">
+                        <n-table size="small" :bordered="false" :single-line="false">
                           <thead>
                             <tr>
                               <th>Слово</th>
-                              <th>Хирагана \ Катакана</th>
+                              <th>Хирагана <br/> Катакана</th>
                               <th>Перевод</th>
                               <th>Группа</th>
                             </tr>
@@ -199,7 +197,6 @@
 }
 
 .question-text {
-    font-size: 60px;
     font-family: "Tsunagi Gothic Black";
     pointer-events: none;
     text-align: center;
@@ -220,7 +217,38 @@
 }
 
 .statistic {
-    font-size: 30px;
     font-family: "Tsunagi Gothic Black";
+}
+
+@media (min-width: 300px) {
+    .group-select {
+        width: 90%;
+    }
+
+    .question-text {
+        font-size: 20px;
+    }
+
+    .statistic {
+        font-size: 15px;
+    }
+}
+
+@media (min-width: 1281px) {
+    .group-select {
+        width: 50%;
+    }
+
+    .config-checkbox-wrapper {
+        width: 50%;
+    }
+
+    .question-text {
+        font-size: 60px;
+    }
+
+    .statistic {
+        font-size: 30px;
+    }
 }
 </style>
