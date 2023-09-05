@@ -135,14 +135,14 @@
                             <span class="question-text">{{ onlyTranslate ? selectedWords[questionNumber].translate : selectedWords[questionNumber].wordWithKanji }}</span>
                             <span v-if="!onlyKanji && !onlyTranslate" class="question-text">{{ selectedWords[questionNumber].word }}</span>
                         </div>
-                        <div style="padding: 20px; display: grid; grid-template-columns: repeat(2, 1fr);">
-                            <n-button :type="(selectedWords[questionNumber].answer === null || selectedWords[questionNumber].selectedButton !== key) ? 'default' : selectedWords[questionNumber].answer === questionNumber ? 'success' : 'error'" 
+                        <div style="width: 100%; display: grid; grid-template-columns: repeat(2, 1fr); padding-top: 20px;">
+                            <n-button style="width: 100%; height: 100%; white-space: normal;" :type="(selectedWords[questionNumber].answer === null || selectedWords[questionNumber].selectedButton !== key) ? 'default' : selectedWords[questionNumber].answer === questionNumber ? 'success' : 'error'" 
                             :disabled="selectedWords[questionNumber].answer !== null" class="answer-text" v-bind:key="item + key + Math.random()" v-for="item, key in selectedWords[questionNumber].answerOptions" :on-click="() => {setAnswer(questionNumber, item, key)}">
                                 {{ onlyTranslate ? selectedWords[item].wordWithKanji + (onlyKanji ? '' : ` (${selectedWords[item].word})`) : selectedWords[item].translate }}
                             </n-button>
                         </div>
                     </div>
-                    <div style="display: flex; justify-content: space-around;">
+                    <div style="display: flex; justify-content: space-around; padding-top: 20px;">
                         <n-button :disabled="questionNumber === 0" type="warning" :on-click="() => {changeQuestion('minus')}">
                             Предыдущий
                         </n-button>
