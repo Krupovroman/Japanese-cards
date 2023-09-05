@@ -5486,6 +5486,8 @@ export default {
     filteredItems: [],
     search: '',
     activePage: 'mnemoticCardsPage',
+    voicePlayer: new SpeechSynthesisUtterance(),
+    isChrome: navigator.userAgent.indexOf("Chrome") !== -1,
     selectThemeOverrides: {
         barColor: '#C08916'
       }
@@ -5533,6 +5535,11 @@ export default {
     onChangeSearch (val) {
       const value = val.target.value.toLowerCase();
       this.filteredItems = this.wordList.filter(item => item.wordWithKanji.includes(value) || item.word.includes(value) || item.translate.toLowerCase().includes(value) || item.groupName.toLowerCase().includes(value));
+    },
+    playVoice (text) {
+        this.voicePlayer.text = text;
+        this.voicePlayer.lang = 'ja-JP';
+        speechSynthesis.speak(this.voicePlayer);
     }
   }
 }
@@ -5556,7 +5563,7 @@ export default {
             </div>
           </div>
           <div class="wrapper">
-            <MnemCard v-bind:key="wordItem.translate + key" v-for="wordItem, key in filteredItems" :wordWithKanji="wordItem.wordWithKanji" :word="wordItem.word" :translate="wordItem.translate" :groupName="wordItem.groupName" />
+            <MnemCard v-bind:key="wordItem.translate + key" v-for="wordItem, key in filteredItems" :wordWithKanji="wordItem.wordWithKanji" :word="wordItem.word" :translate="wordItem.translate" :groupName="wordItem.groupName" :playVoice="playVoice" :isChrome="isChrome" />
           </div>
         </n-tab-pane>
         <n-tab-pane name="Exam" tab="Тестирование" style="height: 100%;">
